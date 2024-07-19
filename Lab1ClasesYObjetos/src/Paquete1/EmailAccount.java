@@ -6,8 +6,8 @@ package Paquete1;
 
 /**
  *
- * @author Dennisse
+ * @author anavalle
  */
-public class Main {
-    //ale
+public class EmailAccount {
+    
 }
