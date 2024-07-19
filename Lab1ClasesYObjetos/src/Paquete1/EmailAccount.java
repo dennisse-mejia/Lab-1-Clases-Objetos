@@ -11,7 +11,7 @@ public class EmailAccount {
         this.emailAddress = emailAddress;
         this.password = password;
         this.fullName = fullName;
-        this.inbox = new EMAIL[50]; // Initialize the inbox array
+        this.inbox = new EMAIL[50]; 
     }
 
     // Getters
@@ -31,7 +31,7 @@ public class EmailAccount {
         return inbox;
     }
 
-    // Function to receive an email
+    // Funcion para recibir un email
     public boolean receiveEmail(EMAIL em) {
         for (int i = 0; i < inbox.length; i++) {
             if (inbox[i] == null) {
@@ -42,7 +42,7 @@ public class EmailAccount {
         return false;
     }
 
-    // Function to delete read emails
+    // Funcion para borrar emails leidos
     public void deleteReadEmails() {
         for (int i = 0; i < inbox.length; i++) {
             if (inbox[i] != null && inbox[i].isRead()) {
