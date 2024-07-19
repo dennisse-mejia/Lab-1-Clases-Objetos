@@ -3,9 +3,12 @@ package Paquete1;
 
 
 public class EMAIL {
-     private String sender;
+    // String para guardar el asunto
+    private String sender;
     private String subject;
     private String content;
+    
+    // Boolean
     private boolean isRead;
 
     // Constructor
@@ -13,7 +16,7 @@ public class EMAIL {
         this.sender = sender;
         this.subject = subject;
         this.content = content;
-        this.isRead = false; // Default value
+        this.isRead = false; // Valor por defecto
     }
 
     // Getters
@@ -33,16 +36,15 @@ public class EMAIL {
         return isRead;
     }
 
-    // Function to mark the email as read
+    // Función para marcar el correo electrónico como leido 
     public void markAsRead() {
         this.isRead = true;
     }
 
-    // Function to print the email details
+    // Función para imprimir los detalles del correo electrónico, utilizando print()
     public void print() {
         System.out.println("DE: " + sender);
         System.out.println("ASUNTO: " + subject);
         System.out.println("CONTENIDO: " + content);
     }
-
 }
