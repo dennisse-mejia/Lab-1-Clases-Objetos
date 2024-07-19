@@ -1,22 +1,22 @@
-
 package Paquete1;
 
-
 public class EMAIL {
-     private String sender;
+
+    private String sender;
     private String subject;
     private String content;
     private boolean isRead;
 
-    // Constructor
+   
     public EMAIL(String sender, String subject, String content) {
         this.sender = sender;
         this.subject = subject;
         this.content = content;
-        this.isRead = false; // Default value
+        //Valor por default
+        this.isRead = false;
     }
 
-    // Getters
+   
     public String getSender() {
         return sender;
     }
@@ -33,12 +33,12 @@ public class EMAIL {
         return isRead;
     }
 
-    // Function to mark the email as read
+    // Funcion para marcar correo leido
     public void markAsRead() {
         this.isRead = true;
     }
 
-    // Function to print the email details
+    // Funcion para imprimir los detalles del correo leido
     public void print() {
         System.out.println("DE: " + sender);
         System.out.println("ASUNTO: " + subject);

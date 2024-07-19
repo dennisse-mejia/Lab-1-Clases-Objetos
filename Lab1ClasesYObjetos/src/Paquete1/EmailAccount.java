@@ -6,7 +6,7 @@ public class EmailAccount {
     private String fullName;
     private EMAIL[] inbox;
 
-    // Constructor
+  
     public EmailAccount(String emailAddress, String password, String fullName) {
         this.emailAddress = emailAddress;
         this.password = password;
@@ -14,7 +14,7 @@ public class EmailAccount {
         this.inbox = new EMAIL[50]; 
     }
 
-    // Getters
+  
     public String getEmailAddress() {
         return emailAddress;
     }
