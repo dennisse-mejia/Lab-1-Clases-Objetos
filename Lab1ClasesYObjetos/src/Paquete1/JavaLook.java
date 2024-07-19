@@ -6,8 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class JavaLook {
-    private static EmailAccount[] accounts = new EmailAccount[50];
-    private static EmailAccount currentAccount = null;
+
+    private EmailAccount[] accounts = new EmailAccount[50];
+    private EmailAccount currentAccount = null;
 
     public static void main(String[] args) {
         try {
@@ -15,10 +16,10 @@ public class JavaLook {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SwingUtilities.invokeLater(JavaLook::showLoginFrame);
+        SwingUtilities.invokeLater(() -> new JavaLook().showLoginFrame());
     }
 
-    private static void showLoginFrame() {
+    private void showLoginFrame() {
         JFrame frame = new JFrame("Login o Crear Cuenta");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
@@ -53,7 +54,7 @@ public class JavaLook {
         frame.setVisible(true);
     }
 
-    private static void showLoginDialog(JFrame parentFrame) {
+    private void showLoginDialog(JFrame parentFrame) {
         JDialog loginDialog = new JDialog(parentFrame, "Login", true);
         loginDialog.setSize(400, 300);
         loginDialog.setLocationRelativeTo(parentFrame);
@@ -99,7 +100,7 @@ public class JavaLook {
         loginDialog.setVisible(true);
     }
 
-    private static void showCreateAccountDialog(JFrame parentFrame) {
+    private void showCreateAccountDialog(JFrame parentFrame) {
         JDialog createAccountDialog = new JDialog(parentFrame, "Crear Cuenta", true);
         createAccountDialog.setSize(400, 300);
         createAccountDialog.setLocationRelativeTo(parentFrame);
@@ -150,7 +151,7 @@ public class JavaLook {
         createAccountDialog.setVisible(true);
     }
 
-    private static void showMainFrame() {
+    private void showMainFrame() {
         JFrame frame = new JFrame("JavaLook - Menú Principal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
@@ -210,7 +211,7 @@ public class JavaLook {
         frame.setVisible(true);
     }
 
-    private static void showInboxDialog(JFrame parentFrame) {
+    private void showInboxDialog(JFrame parentFrame) {
         JDialog inboxDialog = new JDialog(parentFrame, "Inbox", true);
         inboxDialog.setSize(600, 400);
         inboxDialog.setLocationRelativeTo(parentFrame);
@@ -256,7 +257,7 @@ public class JavaLook {
         inboxDialog.setVisible(true);
     }
 
-    private static void showSendEmailDialog(JFrame parentFrame) {
+    private void showSendEmailDialog(JFrame parentFrame) {
         JDialog sendEmailDialog = new JDialog(parentFrame, "Mandar Correo", true);
         sendEmailDialog.setSize(500, 400);
         sendEmailDialog.setLocationRelativeTo(parentFrame);
@@ -306,7 +307,7 @@ public class JavaLook {
         sendEmailDialog.setVisible(true);
     }
 
-    private static void showReadEmailDialog(JFrame parentFrame) {
+    private void showReadEmailDialog(JFrame parentFrame) {
         JDialog readEmailDialog = new JDialog(parentFrame, "Leer Correo", true);
         readEmailDialog.setSize(400, 300);
         readEmailDialog.setLocationRelativeTo(parentFrame);
@@ -343,7 +344,8 @@ public class JavaLook {
         readEmailDialog.setVisible(true);
     }
 
-    private static boolean login(String email, String password) {
+    private boolean login(String email, String password) {
+        email = email.toLowerCase(); // Convertir a minúsculas para la comparación
         for (EmailAccount account : accounts) {
             if (account != null && account.getEmailAddress().equals(email) && account.getPassword().equals(password)) {
                 currentAccount = account;
@@ -353,13 +355,22 @@ public class JavaLook {
         return false;
     }
 
-    private static boolean createAccount(String email, String fullName, String password) {
+    private boolean createAccount(String email, String fullName, String password) {
+        email = email.toLowerCase(); // Convertir a minúsculas para la comparación y almacenamiento
+
+        // Verificar si el correo electrónico es válido
+        if (!isValidEmail(email)) {
+            return false;
+        }
+
+        // Verificar si el correo electrónico ya está en uso
         for (EmailAccount account : accounts) {
             if (account != null && account.getEmailAddress().equals(email)) {
                 return false;
             }
         }
 
+        // Crear una nueva cuenta si hay espacio
         for (int i = 0; i < accounts.length; i++) {
             if (accounts[i] == null) {
                 accounts[i] = new EmailAccount(email, password, fullName);
@@ -370,7 +381,8 @@ public class JavaLook {
         return false;
     }
 
-    private static boolean sendEmail(String recipientEmail, String subject, String content) {
+    private boolean sendEmail(String recipientEmail, String subject, String content) {
+        recipientEmail = recipientEmail.toLowerCase(); // Convertir a minúsculas para la comparación
         EMAIL email = new EMAIL(currentAccount.getEmailAddress(), subject, content);
 
         for (EmailAccount account : accounts) {
@@ -381,7 +393,7 @@ public class JavaLook {
         return false;
     }
 
-    private static String readEmail(int pos) {
+    private String readEmail(int pos) {
         if (pos < 1 || pos > currentAccount.getInbox().length || currentAccount.getInbox()[pos - 1] == null) {
             return "Correo No Existe";
         } else {
@@ -389,5 +401,9 @@ public class JavaLook {
             email.markAsRead();
             return "DE: " + email.getSender() + "\nASUNTO: " + email.getSubject() + "\nCONTENIDO: " + email.getContent();
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.contains("@");
     }
 }
