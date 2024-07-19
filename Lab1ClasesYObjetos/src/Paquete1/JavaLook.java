@@ -10,6 +10,11 @@ public class JavaLook {
     private static EmailAccount currentAccount = null;
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         SwingUtilities.invokeLater(JavaLook::showLoginFrame);
     }
 
@@ -17,31 +22,43 @@ public class JavaLook {
         JFrame frame = new JFrame("Login o Crear Cuenta");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
-        frame.setLayout(new GridLayout(3, 1));
+        frame.setLocationRelativeTo(null); // Centrar la ventana
+        frame.setLayout(new GridBagLayout());
 
-        
-        //
+        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
+
         JButton loginButton = new JButton("LOGIN");
         JButton createAccountButton = new JButton("CREAR ACCOUNT");
+
+        loginButton.setBackground(new Color(255, 182, 193)); // Color pink
+        createAccountButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         loginButton.addActionListener(e -> showLoginDialog(frame));
         createAccountButton.addActionListener(e -> showCreateAccountDialog(frame));
 
-        frame.add(loginButton);
-        frame.add(createAccountButton);
+        panel.add(loginButton);
+        panel.add(createAccountButton);
+        frame.add(panel);
         frame.setVisible(true);
     }
 
     private static void showLoginDialog(JFrame parentFrame) {
         JDialog loginDialog = new JDialog(parentFrame, "Login", true);
         loginDialog.setSize(300, 200);
-        loginDialog.setLayout(new GridLayout(3, 2));
+        loginDialog.setLocationRelativeTo(parentFrame); // Centrar la ventana
+        loginDialog.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
 
         JLabel emailLabel = new JLabel("Email:");
         JTextField emailField = new JTextField();
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField();
         JButton loginButton = new JButton("Login");
+
+        loginButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         loginButton.addActionListener(e -> {
             String email = emailField.getText();
@@ -55,18 +72,23 @@ public class JavaLook {
             }
         });
 
-        loginDialog.add(emailLabel);
-        loginDialog.add(emailField);
-        loginDialog.add(passwordLabel);
-        loginDialog.add(passwordField);
-        loginDialog.add(loginButton);
+        panel.add(emailLabel);
+        panel.add(emailField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(loginButton);
+        loginDialog.add(panel);
         loginDialog.setVisible(true);
     }
 
     private static void showCreateAccountDialog(JFrame parentFrame) {
         JDialog createAccountDialog = new JDialog(parentFrame, "Crear Cuenta", true);
         createAccountDialog.setSize(300, 200);
-        createAccountDialog.setLayout(new GridLayout(4, 2));
+        createAccountDialog.setLocationRelativeTo(parentFrame); // Centrar la ventana
+        createAccountDialog.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
 
         JLabel emailLabel = new JLabel("Email:");
         JTextField emailField = new JTextField();
@@ -75,6 +97,8 @@ public class JavaLook {
         JLabel passwordLabel = new JLabel("Password:");
         JPasswordField passwordField = new JPasswordField();
         JButton createButton = new JButton("Crear");
+
+        createButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         createButton.addActionListener(e -> {
             String email = emailField.getText();
@@ -89,13 +113,14 @@ public class JavaLook {
             }
         });
 
-        createAccountDialog.add(emailLabel);
-        createAccountDialog.add(emailField);
-        createAccountDialog.add(fullNameLabel);
-        createAccountDialog.add(fullNameField);
-        createAccountDialog.add(passwordLabel);
-        createAccountDialog.add(passwordField);
-        createAccountDialog.add(createButton);
+        panel.add(emailLabel);
+        panel.add(emailField);
+        panel.add(fullNameLabel);
+        panel.add(fullNameField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(createButton);
+        createAccountDialog.add(panel);
         createAccountDialog.setVisible(true);
     }
 
@@ -103,13 +128,23 @@ public class JavaLook {
         JFrame frame = new JFrame("JavaLook - Menú Principal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
-        frame.setLayout(new GridLayout(5, 1));
+        frame.setLocationRelativeTo(null); // Centrar la ventana
+        frame.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridLayout(5, 1, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
 
         JButton viewInboxButton = new JButton("VER MI INBOX");
         JButton sendEmailButton = new JButton("MANDAR CORREO");
         JButton readEmailButton = new JButton("LEER UN CORREO");
         JButton clearInboxButton = new JButton("LIMPIAR MI INBOX");
         JButton logoutButton = new JButton("CERRAR SESION");
+
+        viewInboxButton.setBackground(new Color(255, 182, 193)); // Color pink
+        sendEmailButton.setBackground(new Color(255, 182, 193)); // Color pink
+        readEmailButton.setBackground(new Color(255, 182, 193)); // Color pink
+        clearInboxButton.setBackground(new Color(255, 182, 193)); // Color pink
+        logoutButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         viewInboxButton.addActionListener(e -> showInboxDialog(frame));
         sendEmailButton.addActionListener(e -> showSendEmailDialog(frame));
@@ -124,21 +159,25 @@ public class JavaLook {
             showLoginFrame();
         });
 
-        frame.add(viewInboxButton);
-        frame.add(sendEmailButton);
-        frame.add(readEmailButton);
-        frame.add(clearInboxButton);
-        frame.add(logoutButton);
+        panel.add(viewInboxButton);
+        panel.add(sendEmailButton);
+        panel.add(readEmailButton);
+        panel.add(clearInboxButton);
+        panel.add(logoutButton);
+        frame.add(panel);
         frame.setVisible(true);
     }
 
     private static void showInboxDialog(JFrame parentFrame) {
         JDialog inboxDialog = new JDialog(parentFrame, "Inbox", true);
         inboxDialog.setSize(500, 400);
+        inboxDialog.setLocationRelativeTo(parentFrame); // Centrar la ventana
         inboxDialog.setLayout(new BorderLayout());
 
         JTextArea inboxTextArea = new JTextArea();
         inboxTextArea.setEditable(false);
+        inboxTextArea.setBackground(new Color(245, 245, 220)); // Color beige
+        inboxTextArea.setForeground(new Color(255, 182, 193)); // Color pink
         StringBuilder inboxContent = new StringBuilder();
         inboxContent.append("Email: ").append(currentAccount.getEmailAddress()).append("\n");
         inboxContent.append("Nombre Completo: ").append(currentAccount.getFullName()).append("\n");
@@ -146,20 +185,20 @@ public class JavaLook {
         int unreadCount = 0;
         int totalCount = 0;
 
-     for (int i = 0; i < currentAccount.getInbox().length; i++) {
-    EMAIL email = currentAccount.getInbox()[i];
-    if (email != null) {
-        totalCount++;
-        inboxContent.append((i + 1)).append(" - ")
-                     .append(email.getSender()).append(" - ")
-                     .append(email.getSubject()).append(" - ")
-                     .append(email.isRead() ? "LEIDO" : "SIN LEER")
-                     .append("\n");
-        if (!email.isRead()) {
-            unreadCount++;
+        for (int i = 0; i < currentAccount.getInbox().length; i++) {
+            EMAIL email = currentAccount.getInbox()[i];
+            if (email != null) {
+                totalCount++;
+                inboxContent.append((i + 1)).append(" - ")
+                        .append(email.getSender()).append(" - ")
+                        .append(email.getSubject()).append(" - ")
+                        .append(email.isRead() ? "LEIDO" : "SIN LEER")
+                        .append("\n");
+                if (!email.isRead()) {
+                    unreadCount++;
+                }
+            }
         }
-    }
-}
 
         inboxContent.append("Correos sin leer: ").append(unreadCount).append("\n");
         inboxContent.append("Total de correos: ").append(totalCount).append("\n");
@@ -173,7 +212,11 @@ public class JavaLook {
     private static void showSendEmailDialog(JFrame parentFrame) {
         JDialog sendEmailDialog = new JDialog(parentFrame, "Mandar Correo", true);
         sendEmailDialog.setSize(400, 300);
-        sendEmailDialog.setLayout(new GridLayout(4, 2));
+        sendEmailDialog.setLocationRelativeTo(parentFrame); // Centrar la ventana
+        sendEmailDialog.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
 
         JLabel recipientLabel = new JLabel("Destinatario:");
         JTextField recipientField = new JTextField();
@@ -182,6 +225,8 @@ public class JavaLook {
         JLabel contentLabel = new JLabel("Contenido:");
         JTextArea contentArea = new JTextArea();
         JButton sendButton = new JButton("Enviar");
+
+        sendButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         sendButton.addActionListener(e -> {
             String recipientEmail = recipientField.getText();
@@ -195,24 +240,31 @@ public class JavaLook {
             }
         });
 
-        sendEmailDialog.add(recipientLabel);
-        sendEmailDialog.add(recipientField);
-        sendEmailDialog.add(subjectLabel);
-        sendEmailDialog.add(subjectField);
-        sendEmailDialog.add(contentLabel);
-        sendEmailDialog.add(new JScrollPane(contentArea));
-        sendEmailDialog.add(sendButton);
+        panel.add(recipientLabel);
+        panel.add(recipientField);
+        panel.add(subjectLabel);
+        panel.add(subjectField);
+        panel.add(contentLabel);
+        panel.add(new JScrollPane(contentArea));
+        panel.add(sendButton);
+        sendEmailDialog.add(panel);
         sendEmailDialog.setVisible(true);
     }
 
     private static void showReadEmailDialog(JFrame parentFrame) {
         JDialog readEmailDialog = new JDialog(parentFrame, "Leer Correo", true);
         readEmailDialog.setSize(300, 200);
-        readEmailDialog.setLayout(new GridLayout(2, 2));
+        readEmailDialog.setLocationRelativeTo(parentFrame); // Centrar la ventana
+        readEmailDialog.setLayout(new GridBagLayout());
+
+        JPanel panel = new JPanel(new GridLayout(2, 2, 10, 10));
+        panel.setBackground(new Color(245, 245, 220)); // Color beige
 
         JLabel posLabel = new JLabel("Posición del Correo:");
         JTextField posField = new JTextField();
         JButton readButton = new JButton("Leer");
+
+        readButton.setBackground(new Color(255, 182, 193)); // Color pink
 
         readButton.addActionListener(e -> {
             int pos = Integer.parseInt(posField.getText());
@@ -221,9 +273,10 @@ public class JavaLook {
             readEmailDialog.dispose();
         });
 
-        readEmailDialog.add(posLabel);
-        readEmailDialog.add(posField);
-        readEmailDialog.add(readButton);
+        panel.add(posLabel);
+        panel.add(posField);
+        panel.add(readButton);
+        readEmailDialog.add(panel);
         readEmailDialog.setVisible(true);
     }
 
@@ -275,5 +328,6 @@ public class JavaLook {
         }
     }
 }
+
 
 
